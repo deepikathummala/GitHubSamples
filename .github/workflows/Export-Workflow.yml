@@ -38,7 +38,7 @@ jobs:
     - name: who-am-i action
       uses: microsoft/powerplatform-actions/who-am-i@v0
       with:
-        environment-url: ${{env.ENVIRONMENT_URL}}
+        environment-url: ${{secrets.ENVIRONMENT_URL}}
         app-id:  ${{ secrets.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
         tenant-id: ${{ secrets.TENANT_ID}}
