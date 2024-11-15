@@ -66,8 +66,8 @@ jobs:
     - name: Commit changes
       run: |
         cp -r ${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }} ./${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }} 
-        git config --global user.email "no-reply@github.com"
-        git config --global user.name "GitHub Actions"
+        git config --global user.email "thummaladeepika@gmail.com"
+        git config --global user.name "DeepikaThummala"
         git checkout main
         git add --all 
         git commit -m "Updates from the dev environment"
