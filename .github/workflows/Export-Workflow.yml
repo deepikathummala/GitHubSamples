@@ -9,7 +9,7 @@ on:
       solution_name:
         description: 'name of the solution to worked on from Power Platform'
         required: true
-        default: ALMLab
+        default: Dev_Sol
        #Do Not change these values
       solution_exported_folder:
         description: 'folder name for staging the exported solution *do not change*'
@@ -23,13 +23,6 @@ on:
        description: 'folder name to be created and checked in *do not change*'
        required: true
        default: solution
-env:
-#edit your values here
-  ENVIRONMENT_URL: '<URL OF YOUR DEV ENVIRONMENT>'
-  CLIENT_ID: '<TYPE YOUR APPLICATION ID HERE>'
-  TENANT_ID: '<TYPE YOUR TENANT ID HERE>'
-permissions:
-  contents: write
 jobs:
   export-from-dev:
     runs-on: windows-latest
@@ -46,9 +39,9 @@ jobs:
       uses: microsoft/powerplatform-actions/who-am-i@v0
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
-        app-id: ${{env.CLIENT_ID}}
+        app-id:  ${{ secrets.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
-        tenant-id: ${{env.TENANT_ID}}
+        tenant-id: ${{ secrets.TENANT_ID}}
         
     
 
@@ -56,9 +49,9 @@ jobs:
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         environment-url: ${{env.ENVIRONMENT_URL}}
-        app-id: ${{env.CLIENT_ID}}
+        app-id:  ${{ secrets.CLIENT_ID}}
         client-secret: ${{ secrets.PowerPlatformSPN }}
-        tenant-id: ${{env.TENANT_ID}}
+        tenant-id: ${{ secrets.TENANT_ID}}
         solution-name: ${{ github.event.inputs.solution_name }}
         solution-output-file: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
 
