@@ -45,7 +45,7 @@ jobs:
         
     
 
-    - name: export-solution action
+    - name: export-solution-unpack-artifact
       uses: microsoft/powerplatform-actions/export-solution@v0
       with:
         environment-url: ${{secrets.ENVIRONMENT_URL}}
