@@ -63,13 +63,8 @@ jobs:
         solution-type: 'Unmanaged'
         overwrite-files: true
         
-    - name: Commit changes
-      run: |
-        cp -r ${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }} ./${{ github.event.inputs.solution_folder}}/${{ github.event.inputs.solution_name }} 
-        git config --global user.email "thummaladeepika@gmail.com"
-        git config --global user.name "DeepikaThummala"
-        git checkout main
-        git add --all 
-        git commit -m "Updates from the dev environment"
-        git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
-        git push
+    - name: Upload solution as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: exportedSolution
+        path: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
