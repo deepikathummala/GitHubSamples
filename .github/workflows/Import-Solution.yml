@@ -12,7 +12,8 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: exportedSolution
-        path: out/release/
+        #path: out/release/
+        path: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
 
     - name: Import solution to prod env
       uses: microsoft/powerplatform-actions/import-solution@v0
