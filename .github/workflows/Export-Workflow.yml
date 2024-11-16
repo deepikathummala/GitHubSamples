@@ -64,7 +64,7 @@ jobs:
         overwrite-files: true
         
     - name: Upload solution as artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v2
       with:
         name: exportedSolution
           path:${{ github.event.inputs.solution_shipping_folder}}/${{ github.event.inputs.solution_name }}.zip
