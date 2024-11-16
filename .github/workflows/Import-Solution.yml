@@ -5,47 +5,8 @@ name: release-solution-to-prod
 
 on:
   workflow_dispatch:
-    inputs:
-      # Change this value
-      solution_name:
-        description: 'name of the solution to worked on from Power Platform'
-        required: true
-        default: Dev_Sol
-       #Do Not change these values
-      solution_shipping_folder:
-        description: 'folder name for staging the exported solution *do not change*'
-        required: true
-        default: out/
-      solution_outbound_folder:
-        description: 'staging the unpacked solution folder before check-in *do not change*'
-        required: true
-        default: /solution
-      solution_source_folder:
-       description: 'folder name to be created and checked in *do not change*'
-       required: true
-       default: solution
-      solution_release_folder:
-       description: 'folder where the released binaries are going to be hosted *do not change*'
-       required: true
-       default: out/release
-  release:
-    types: [created]
-
-permissions:
-  contents: write
 jobs:
-  convert-to-managed:
-    runs-on: windows-latest
-    env:
-      RUNNER_DEBUG: 1
-
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        lfs: true
-
   release-to-staging:
-    needs: [ convert-to-managed ]
     runs-on: windows-latest
     env:
       RUNNER_DEBUG: 1
@@ -59,7 +20,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: exportedSolution
-        path: out/release/
+        path: ${{ github.event.inputs.solution_exported_folder}}/${{ github.event.inputs.solution_name }}.zip
 
     - name: Import solution to prod env
       uses: microsoft/powerplatform-actions/import-solution@v0
