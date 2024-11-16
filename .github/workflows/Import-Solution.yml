@@ -1,11 +1,5 @@
 on:
   workflow_dispatch:
-    inputs:
-      # Change this value
-      solution_name:
-        description: 'name of the solution to worked on from Power Platform'
-        required: true
-        default: ALMLab
 jobs:
   convert-to-managed:
     runs-on: windows-latest
