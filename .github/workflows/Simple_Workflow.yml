@@ -1,0 +1,24 @@
+name: Simple Workflow
+on:
+   workflow_dispatch:
+   #schedule:
+      #- cron: '0 0 * * *'(UTC TimeZone)
+    inputs:
+      myInput:
+         description: 'provide simple input'
+         required: true
+         default: 'Hello World'
+jobs:
+    build:
+       runs-on: ubuntu-latest
+       steps:
+          - uses: actions/checkout@v4
+          - name: 'Run a script'
+            run: echo hello
+          - name: Display input value
+            run: echo "The input value is ${{github.event.inputs.myInput}}"
+          - name: Run a multi-line script
+            run: |
+                 echo hello,
+                 echo everyone.
+       
