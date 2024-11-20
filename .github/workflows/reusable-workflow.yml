@@ -1,6 +1,6 @@
 name: reusable-workflow
 on:
- workflow_call:
+workflow_call:
    inputs:
        solution_names:
           description: 'solutions'
