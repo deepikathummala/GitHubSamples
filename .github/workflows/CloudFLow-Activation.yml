@@ -1,0 +1,33 @@
+name: cloud-flow-activation-pd
+
+on:
+  workflow_dispatch:
+    inputs:
+       environment:
+         description: "specify the environment"
+         required: true
+         default: "Test"
+       solution_names:
+         description: "solution names"
+         required: true
+         default: "solution,solution1,solution2"
+  release:
+       types: [created]
+permissions:
+   contents: write
+jobs:
+    Activate_cloud_flows:
+      runs-on: windows-latest
+      environment:
+        name: ${{ github.event.inputs.Environment }}
+        
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v2
+          with:
+            Ifs:true
+        - name: Activate Cloud Flows
+          shell: powershell
+           runs: |
+               .\solutions\dev_sol\ActivateFlows.ps1 -EmvUrl ${{ secrets.ENVIRONMENT_URL }} -AppId ${{ secrets.APP_ID }} -AppSecret ${{secrets.PowerPlatformSPN }} -solution_names ${{ github.event.input.solution_names }}
+          
