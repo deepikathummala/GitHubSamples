@@ -1,0 +1,76 @@
+name: export-import-solution
+on:
+ workflow_dispatch:
+  inputs:
+   solution_names:
+    description: 'name of the solution'
+    required: true
+    default: solution
+   source_envurl:
+    description: 'source env url'
+    required: true
+    default: ''
+   target_envurl:
+     description: ''
+     required: true
+     default: ''
+   version_number:
+    description: ''
+    required: true
+    default: ''
+   packageTypeName:
+     description: 'pacakge type name'
+     required: true
+     type: choice
+     options:
+        - UnmanagedToManaged
+        - UnmanagedToUnmanaged
+   override_type:
+     description: ''
+     required: true
+     type: choice
+     options:
+       - 'false'
+       - 'true'
+env:
+  SOLUTION_UNMANAGED_TARGET_FOLDER: out/unmanaged/exported/unpacksolution/${{ github.event.inputs.solution_name }}
+  SOLUTION_MANAGED_TARGET_FOLDER: out/managed/exported/unpacksolution/${{ github.event.inputssolution_name }}
+  SOLUTION_UNMANAGED_EXPORTED_FOLDER: out/unmanaged/exported/${{ github.event.inputs.solution_name }} 
+  UNMANAGED_SOLUTION_EXPORTED_UNPACK: out/unmanaged/exported/unpacksolution/${{ github.event.inputs.solution_name }} 
+  UNMANAGED_SOLUTION_UNPACK_EXPORTED_FOLDER: out/unmanaged/exported/unpacksolution/${{ github.event.inputs.solution_name }} 
+  MANAGED_SOLUTION_UNPACK_EXPORTED_FOLDER: out/unmanaged/exported/unpacksolution/${{ github.event.inputs.solution_name }} 
+  UNMANAGED_SOLUTION_FOLDER: solutions/unmanaged/${{ github.event.inputs.solution_name }} 
+  UNMANAGED_SOLUTION_UNMANAGED_FOLDER: solutions/unmanaged/${{ github.event.inputs.solution_name }} 
+  MANAGED_SOLUTION_EXPORTED_FOLDER: out/managed/exported/${{ github.event.inputs.solution_name }} 
+  MANAGED_SOLUTION_TARGET_FOLDER: solutions/managed/${{ github.event.inputs.solution_name }} 
+  async_waiting_time: '120'
+ # TRAIN_JOB_TYPE: release_pipeline
+ # TRAIN_DIST_TARGETS: artifactory
+permissions:
+  contents: write
+  deployments: write
+  pull-requests: write
+  id-token: write
+jobs:
+  export-solution:
+    runs-on: windows-latest
+    env:
+      RUNNER_DEBUG: 1
+ steps:
+     - name: Check solution action
+       uses: microsoft/powerplatform-actions/check-solution@v1
+       with:
+        environment-url: https://${{ github.event.inputs.source_envurl}}.crm.dynamics.com
+        path: ${{ env.SOLUTION_UNMANAGED_EXPORTED_FOLDER }}/${{ github.event.inputs.solution_names}}
+        app-id: ${{ secrets.CLIENT_ID}}
+        client-secret: ${{ secrets.POWERPLATFORMSPN}}
+        tenant-id: ${{ secrets.TENANT_ID}}
+        checker-logs-artifact-name: ${{ github.event.inputs.solution_name}}_checkerSolutionLogs
+        
+        
+      
+  
+  
+     
+    
+   
