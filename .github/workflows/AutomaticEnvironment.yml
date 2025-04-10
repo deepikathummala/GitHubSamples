@@ -13,6 +13,13 @@ on:
           - Migration
           - Acceptance
           - Production
+      is_solution_upgrade_needed:
+         description: 'Choose the environment'
+         required: true
+         type: choice
+         options:
+           - Yes
+           - No
          
 jobs:
   set-env-url:
@@ -34,8 +41,11 @@ jobs:
           Write-Host "Environment: $envName"
           Write-Host "Environment URL: $environment_url"
       - name: Import solutions with upgrade
-        run: |
-          environment-url: ${{ github.event.inputs.environment_url }}
+        if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
+        uses: microsoft/powerplatform-actions/import-solution@v0
+        with:
+          environment-url: $environment_url
+        
          
           
           
