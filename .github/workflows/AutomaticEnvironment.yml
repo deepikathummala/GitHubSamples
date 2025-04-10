@@ -33,5 +33,4 @@ jobs:
  
           Write-Host "Environment: $envName"
           Write-Host "Environment URL: $url"
-          Write-Host "Environment URL: $environment_url"
-          environment-url: $environment_url
+          Write-Host "Environment URL: $environment_url
