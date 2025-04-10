@@ -1,3 +1,5 @@
+name: Populate ENV URL
+
 on:
   workflow_dispatch:
     inputs:
