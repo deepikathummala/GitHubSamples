@@ -24,7 +24,7 @@ jobs:
           elif [ "${{ github.event.inputs.environment }}" == "test" ]; then
              "ENV_URL=https://test.example.com" 
           elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
-            e"ENV_URL=https://prod.example.com" 
+            "ENV_URL=https://prod.example.com" 
           fi
 
       - name: Display ENV URL
