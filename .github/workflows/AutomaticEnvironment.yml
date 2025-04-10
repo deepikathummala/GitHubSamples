@@ -44,7 +44,7 @@ jobs:
         if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
         uses: microsoft/powerplatform-actions/import-solution@v0
         with:
-          environment-url: $environment_url
+          environment-url: "https://dev.crm4.dynamics.com"
         
          
           
