@@ -8,10 +8,12 @@ on:
         required: true
         type: choice
         options:
-          - dev
-          - test
-          - prod
-
+          - Development
+          - Testing
+          - Migration
+          - Acceptance
+          - Production
+         
 jobs:
   set-env-url:
     runs-on: ubuntu-latest
