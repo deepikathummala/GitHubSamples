@@ -36,6 +36,5 @@ jobs:
       - name: Import solutions with upgrade
         with:
           environment-url: $environment_url
-          Write-Host "Environment URL: environment-url"
           
           
