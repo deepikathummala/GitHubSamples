@@ -20,11 +20,11 @@ jobs:
         id: set-env-url
         run: |
           if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
-             "ENV_URL=https://dev.example.com" 
+             "$ENV_URL=https://dev.example.com" 
           elif [ "${{ github.event.inputs.environment }}" == "test" ]; then
-             "ENV_URL=https://test.example.com" 
+             "$ENV_URL=https://test.example.com" 
           elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
-            "ENV_URL=https://prod.example.com" 
+            "$ENV_URL=https://prod.example.com" 
           fi
 
       - name: Display ENV URL
