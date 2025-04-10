@@ -35,6 +35,7 @@ jobs:
           Write-Host "Environment URL: $environment_url"
       - name: Import solutions with upgrade
         run: |
-          environment-url: $environment_url
+          environment-url: ${{ github.event.inputs.environment_url }}
+         
           
           
