@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Choose the environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+jobs:
+  set-env-url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set ENV URL
+        id: set-env-url
+        run: |
+          if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
+            echo "ENV_URL=https://dev.example.com" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.environment }}" == "test" ]; then
+            echo "ENV_URL=https://test.example.com" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
+            echo "ENV_URL=https://prod.example.com" >> $GITHUB_ENV
+          fi
+
+      - name: Display ENV URL
+        run: echo "Environment URL is $ENV_URL"
