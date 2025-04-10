@@ -18,8 +18,8 @@ on:
          required: true
          type: choice
          options:
-           - Yes
-           - No
+           - 'Yes'
+           - 'No'
          
 jobs:
   set-env-url:
