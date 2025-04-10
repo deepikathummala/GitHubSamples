@@ -25,26 +25,22 @@ jobs:
   set-env-url:
     runs-on: ubuntu-latest
     steps:
-      - name: Map Environment Name to URL and Authenticate
-        shell: pwsh
+      - name: Set ENV URL
         run: |
-          $envName = "${{ github.event.inputs.environment }}"
-          $environment_url = switch ($envName) {
-            "Development" { "https://dev.crm4.dynamics.com" }
-            "Testing"     { "https://tst.crm4.dynamics.com" }
-            "Migration"   { "https://mig.crm4.dynamics.com" }
-            "Acceptance"  { "https://acc.crm4.dynamics.com" }
-            "Production"  { "https://prd.crm4.dynamics.com" }
-            default       { throw "Unknown environment: $envName" }
-          }
- 
-          Write-Host "Environment: $envName"
-          Write-Host "Environment URL: $environment_url"
+          if [ "${{ github.event.inputs.environment }}" == "Development" ]; then
+            echo "ENV_URL=https://dev.example.com" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.environment }}" == "Testing" ]; then
+            echo "ENV_URL=https://test.example.com" >> $GITHUB_ENV
+          elif [ "${{ github.event.inputs.environment }}" == "Migration" ]; then
+            echo "ENV_URL=https://prod.example.com" >> $GITHUB_ENV
+          fi
+      - name: Display ENV URL
+        run: echo "Environment URL is $ENV_URL"
       - name: Import solutions with upgrade
         if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
         uses: microsoft/powerplatform-actions/import-solution@v0
         with:
-          environment-url: "https://dev.crm4.dynamics.com"
+          environment-url: "$ENV_URL"
         
          
           
