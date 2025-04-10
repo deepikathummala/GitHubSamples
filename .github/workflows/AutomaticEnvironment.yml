@@ -16,16 +16,20 @@ jobs:
   set-env-url:
     runs-on: ubuntu-latest
     steps:
-      - name: Set ENV URL
-        id: set-env-url
+      - name: Map Environment Name to URL and Authenticate
+        shell: pwsh
         run: |
-          if [ "${{ github.event.inputs.environment }}" == "dev" ]; then
-             "$ENV_URL=https://dev.example.com" 
-          elif [ "${{ github.event.inputs.environment }}" == "test" ]; then
-             "$ENV_URL=https://test.example.com" 
-          elif [ "${{ github.event.inputs.environment }}" == "prod" ]; then
-            "$ENV_URL=https://prod.example.com" 
-          fi
-
-      - name: Display ENV URL
-        run: echo "Environment URL is $ENV_URL"
+          $envName = "${{ github.event.inputs.environment }}"
+          $url = switch ($envName) {
+            "Development" { "https://dev.crm4.dynamics.com" }
+            "Testing"     { "https://tst.crm4.dynamics.com" }
+            "Migration"   { "https://mig.crm4.dynamics.com" }
+            "Acceptance"  { "https://acc.crm4.dynamics.com" }
+            "Production"  { "https://prd.crm4.dynamics.com" }
+            default       { throw "Unknown environment: $envName" }
+          }
+ 
+          Write-Host "Environment: $envName"
+          Write-Host "Environment URL: $url"
+          Write-Host "Environment URL: $environment_url"
+          environment-url: $environment_url
