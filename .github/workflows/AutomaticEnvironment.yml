@@ -41,8 +41,3 @@ jobs:
              echo "Environment URL is $environment_url"
              echo "Correct value is ${{ env.environment_url }}"
 
-      - name: Import solutions with upgrade
-        if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
-        uses: microsoft/powerplatform-actions/import-solution@v0
-        with:
-          environment-url: ${{ env.environment_url }}
