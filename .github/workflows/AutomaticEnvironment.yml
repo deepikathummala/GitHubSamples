@@ -34,8 +34,9 @@ jobs:
           fi
 
       - name: Display ENV URL
-        run: echo "Environment URL is $ENV_URL"
-             echo "Correct value is ${{ env.ENV_URL }}"
+        run: |
+             Write-Host "Environment URL is $ENV_URL"
+             Write-Host "Correct value is ${{ env.ENV_URL }}"
 
       - name: Import solutions with upgrade
         if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
