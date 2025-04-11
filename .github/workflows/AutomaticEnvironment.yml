@@ -36,5 +36,5 @@ jobs:
             default       { throw "Unknown environment: $envName" }
           }
           Write-Host "Environment URL is $environment_url"
-          Write-Host "Correct value is ${{ var.environment_url }}"
+          Write-Host "Correct value is ${{ env.environment_url }}"
 
