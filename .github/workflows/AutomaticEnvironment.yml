@@ -35,9 +35,6 @@ jobs:
             "Production"  { "https://prd.crm4.dynamics.com" }
             default       { throw "Unknown environment: $envName" }
           }
-
-      - name: Display ENV URL
-        run: |
-             echo "Environment URL is $environment_url"
-             echo "Correct value is ${{ env.environment_url }}"
+          Write-Host "Environment URL is $environment_url"
+          Write-Host "Correct value is ${{ var.environment_url }}"
 
