@@ -11,6 +11,9 @@ on:
           - Development
           - Testing
           - Migration
+          - Acceptance
+          - Production
+  
       is_solution_upgrade_needed:
         description: 'Is solution upgrade needed?'
         required: true
