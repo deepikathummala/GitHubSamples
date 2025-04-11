@@ -31,6 +31,10 @@ jobs:
               echo "ENV_URL=https://test.example.com" >> $GITHUB_ENV
             elif [ "${{ github.event.inputs.environment }}" == "Migration" ]; then
               echo "ENV_URL=https://migration.example.com" >> $GITHUB_ENV
+            elif [ "${{ github.event.inputs.environment }}" == "Acceptance" ]; then
+              echo "ENV_URL=https://acceptance.example.com" >> $GITHUB_ENV
+            elif [ "${{ github.event.inputs.environment }}" == "Production" ]; then
+              echo "ENV_URL=https://prod.example.com" >> $GITHUB_ENV
             fi
         - name: Display ENV URL
           run: |
