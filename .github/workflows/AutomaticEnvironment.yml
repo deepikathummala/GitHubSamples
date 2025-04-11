@@ -18,6 +18,8 @@ on:
         options:
           - 'Yes'
           - 'No'
+env:
+
 
 jobs:
   set-env-url:
@@ -28,11 +30,11 @@ jobs:
         run: |
           $envName = "${{ github.event.inputs.environment }}"
           $environment_url = switch ($envName) {
-            "Development" { "https://dev.crm4.dynamics.com" }
-            "Testing"     { "https://tst.crm4.dynamics.com" }
-            "Migration"   { "https://mig.crm4.dynamics.com" }
-            "Acceptance"  { "https://acc.crm4.dynamics.com" }
-            "Production"  { "https://prd.crm4.dynamics.com" }
+            "Development" { "https://dev.crm4.dynamics.com" } >> $GITHUB_ENV
+            "Testing"     { "https://tst.crm4.dynamics.com" } >> $GITHUB_ENV
+            "Migration"   { "https://mig.crm4.dynamics.com" } >> $GITHUB_ENV
+            "Acceptance"  { "https://acc.crm4.dynamics.com" } >> $GITHUB_ENV
+            "Production"  { "https://prd.crm4.dynamics.com" } >> $GITHUB_ENV
             default       { throw "Unknown environment: $envName" }
           }
           Write-Host "Environment URL is $environment_url"
