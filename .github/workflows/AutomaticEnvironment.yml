@@ -23,23 +23,26 @@ jobs:
   set-env-url:
     runs-on: ubuntu-latest
     steps:
-      - name: Set ENV URL
+      - name: Map Environment Name to URL and Authenticate
+        shell: pwsh
         run: |
-          if [ "${{ github.event.inputs.environment }}" == "Development" ]; then
-              "ENV_URL=https://dev.example.com" >> $GITHUB_ENV
-          elif [ "${{ github.event.inputs.environment }}" == "Testing" ]; then
-              "ENV_URL=https://test.example.com" >> $GITHUB_ENV
-          elif [ "${{ github.event.inputs.environment }}" == "Migration" ]; then
-              "ENV_URL=https://prod.example.com" >> $GITHUB_ENV
-          fi
+          $envName = "${{ github.event.inputs.environment }}"
+          $environment_url = switch ($envName) {
+            "Development" { "https://dev.crm4.dynamics.com" }
+            "Testing"     { "https://tst.crm4.dynamics.com" }
+            "Migration"   { "https://mig.crm4.dynamics.com" }
+            "Acceptance"  { "https://acc.crm4.dynamics.com" }
+            "Production"  { "https://prd.crm4.dynamics.com" }
+            default       { throw "Unknown environment: $envName" }
+          }
 
       - name: Display ENV URL
         run: |
-             echo "Environment URL is $ENV_URL"
-             echo "Correct value is ${{ env.ENV_URL }}"
+             echo "Environment URL is $environment_url"
+             echo "Correct value is ${{ env.environment_url }}"
 
       - name: Import solutions with upgrade
         if: ${{ github.event.inputs.is_solution_upgrade_needed == 'Yes' }} 
         uses: microsoft/powerplatform-actions/import-solution@v0
         with:
-          environment-url: ${{ env.ENV_URL }}
+          environment-url: ${{ env.environment_url }}
